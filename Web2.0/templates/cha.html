@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CHA</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" type="text/css" href="https://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    {% load static %}
+    <!-- MetisMenu CSS -->
+    <link href="{% static "css/metisMenu.min.css" %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static "css/sb-admin-2.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" type="text/css" href="https://www.jq22.com/jquery/font-awesome.4.6.0.css">
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {% include "nav.html" %}
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">数据查询</h1>
+					<p class="MsoNormal" align="left" style="text-align:left;">
+                    <h3 class="page-header">信息查询</h3>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/search/">客户信息</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/acct/">客户所有账户信息</a> <br>
+                    <h3 class="page-header">消费查询</h3>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/fentian_gaap/">客户 分天消费</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/fentian_gaap_acct/">账户 分天消费</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/fenmonth_gaap/">客户 分月消费</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/fenquarter_gaap/">客户 分季度消费</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/pp/">客户 品牌分产品线消费</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/fentian_zdx/">客户各账户 分天展点消</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/fenmonth_zdx/">客户各账户 分月展点消</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/fenquarter_zdx/">客户各账户 分季度展点消</a> <br>
+                    <h3 class="page-header">框架查询</h3>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/kj/">框架进度</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/kj_new/">框架新签</a> <br>
+                    &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/baidan/">框架账户 白单消费</a> <br>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="{% static "js/metisMenu.min.js" %}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{% static "js/sb-admin-2.js" %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/index/">ANRW</a>
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right">
+        <li><a id="time_now"></a></li>
+    </ul>
+    <!-- /.navbar-top-links -->
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="/index/"><i class="fa fa-dashboard fa-fw"></i>&nbsp;首页</a>
+                </li>
+                <li>
+                    <a href="/cha/"><i class="fa fa-edit fa-fw"></i>&nbsp;查页</a>
+                </li>
+                <li>
+                    <a href="/hang/"><i class="fa fa-bar-chart-o fa-fw"></i>&nbsp;行页</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+</nav>
+<script>
+    // 防止刷新重复提交表单
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    var date = new Date()<!--获得日期数据-->
+    var y = date.getFullYear();<!--年-->
+    var m = date.getMonth() + 1;<!--月，这里的月份必须要+1才是当前月份-->
+    var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+    document.getElementById("time_now").innerText = "今日日期：" + y + "-" + m + "-" + d;
+</script>

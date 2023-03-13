@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="行业">
+    <meta name="author" content="zhouxihan">
+
+    <title>HANG</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" type="text/css" href="https://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    {% load static %}
+    {% load mytags %}
+    <!-- MetisMenu CSS -->
+    <link href="{% static "css/metisMenu.min.css" %}" rel="stylesheet">
+    <script src="{% static "js/echarts.min.js" %}"></script>
+    <!-- Custom CSS -->
+    <link href="{% static "css/sb-admin-2.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" type="text/css" href="https://www.jq22.com/jquery/font-awesome.4.6.0.css">
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {% include "nav.html" %}
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">行业情况</h1>
+                <h5 class="page-header"><font color="#FF0000">目前仅导入日用消费品-日化用品数据</font> ；其他行业数据后续导入</h5>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>行业查找</h4>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div class="col-lg-6">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="disabledSelect">一级查询</label>
+                                            <select id="first" class="form-control" name="one" onchange="change()">
+                                                <option>医疗服务</option>
+                                                <option>整形美容</option>
+                                                <option>医疗器械</option>
+                                                <option>保健品/药品</option>
+                                                <option>机械设备</option>
+                                                <option>商务服务</option>
+                                                <option>生活服务</option>
+                                                <option>文娱传媒</option>
+                                                <option>文体器材</option>
+                                                <option>交通出行</option>
+                                                <option>物流业</option>
+                                                <option>日用消费品</option>
+                                                <option>食品饮料</option>
+                                                <option>母婴用品</option>
+                                                <option>金融服务</option>
+                                                <option>IT/消费电子</option>
+                                                <option>软件</option>
+                                                <option>游戏</option>
+                                                <option>教育培训</option>
+                                                <option>旅游服务</option>
+                                                <option>箱包服饰</option>
+                                                <option>商品交易</option>
+                                                <option>房产家居</option>
+                                                <option>电子电工</option>
+                                                <option>通信</option>
+                                                <option>网络服务</option>
+                                                <option>农林牧渔</option>
+                                                <option>社会公共</option>
+                                                <option>化工及能源</option>
+                                                <option>招商加盟</option>
+                                                <option>其他</option>
+                                            </select>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="disabledSelect">二级查询</label>
+                                            <select id="second" class="form-control" name="two">
+                                            </select>
+                                        </div>
+                                            <button type="submit" class="btn btn-primary">查询</button>
+                                    </fieldset>
+                                </div>
+                            </form>
+                            <!-- /.panel-body -->
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>直销情况</h4>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>值</th>
+                                            <th>北分</th>
+                                            <th>广分</th>
+                                            <th>上分</th>
+                                            <th>深分</th>
+                                            <th>苏分</th>
+                                            <th>天分</th>
+                                            <th>总计</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for i in zhixiao %}
+                                            <tr>
+                                                <td>{{ i.year }}</td>
+                                                <td>{{ i.beifen }}</td>
+                                                <td>{{ i.guangfen }}</td>
+                                                <td>{{ i.shangfen }}</td>
+                                                <td>{{ i.shenfen }}</td>
+                                                <td>{{ i.sufen }}</td>
+                                                <td>{{ i.tianfen }}</td>
+                                                <td>{% show_element_of_list_by_index sum_lst forloop.counter %}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td>年环比</td>
+                                            {% for i in huan_bi %}
+                                                <td>{{ i }}%</td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>年同比</td>
+                                            {% for i in tong_bi %}
+                                                <td>{{ i }}%</td>
+                                            {% endfor %}
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div id="main" style="margin:0 auto;width: 600px;height:400px"></div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div id="main_2" style="margin:0 auto;width: 750px;height:400px"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>直销数据查询</h4>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p>
+                                &nbsp;<text>行业消费查询</text><br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_hy1/">一级行业消费占比</a> <br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_hy2/">二级行业消费占比</a> <br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_hy1_change/">一级行业消费同环比</a> <br>
+                                &nbsp;<text>行业品牌消费查询</text><br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_pp/">一级行业品牌产品线占比</a> <br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_pp_stl/">一级行业品牌产品线渗透率</a> <br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_pp_stl_2/">二级行业品牌产品线渗透率</a> <br>
+                                &nbsp;<text>行业展点消查询</text><br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_zdx/">一级行业展点消</a> <br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_zdx2/">二级行业展点消</a> <br>
+                                &nbsp;<text>行业生态消费查询</text><br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_st_1/">一级行业生态消费</a> <br>
+                                &emsp;&emsp;<a href="http://172.16.159.42:8000/polls/zhixiao_st/">二级行业生态消费</a> <br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>市场情况</h4>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12" style="text-align: center">
+                                {% if result %}
+                                    <img style="width: 80%;height: 10%" src="{% static "img/res.png" %}"
+                                         alt="词云图"/>{% endif %}
+                            </div>
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>明细表</h4>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>公司名</th>
+                                    <th>注册资本</th>
+                                    <th>经营范围</th>
+                                    <th>商标</th>
+                                    <th>招聘信息</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in company %}
+                                    <tr>
+                                        <td>{{ i.id }}</td>
+                                        <td>{{ i.name }}</td>
+                                        <td>{{ i.reg_money }}</td>
+                                        <td>{{ i.manage }}</td>
+                                        <td>{{ i.brand }}</td>
+                                        <td>{{ i.recruit }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                完整数据请联系：<a href="baidu://message/?sid=&id=周轴晭宙">他</a>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{% static "js/metisMenu.min.js" %}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static "js/sb-admin-2.js" %}"></script>
+
+    <script>
+        var proData = {
+            "医疗服务": ['妇产科', '男科', '内科', '皮肤科', '外科', '中医科', '耳鼻咽喉科', '眼科', '口腔科', '儿科', '体检科', '精神科', '生殖医学科', '戒毒科', '康复科', '综合医院', '医疗周边服务'],
+            "整形美容": ['整形美容综合', '整形修复外科', '皮肤美容', '面部整形', '美体塑形', '纹身', '植发', '口腔美容', '眼科美容', '医美服务平台', '整形美容-其他'],
+            "医疗器械": ['一类医疗器械', '二类、三类医疗器械', '医疗器械-其他'],
+            "保健品/药品": ['药品', '药房', '医药电商平台', '兽药', '保健品'],
+            "机械设备": ['通用机械设备', '建筑工程机械', '清洁及通风设备', '机床机械', '物流设备', '食品机械', '机械设备-其他', '五金配件', '机械设备信息平台'],
+            "商务服务": ['咨询调查', '商业检修', '检测认证', '法律服务', '技术服务', '拍卖', '代理代办', '出国移民', '签证服务', '招聘/人才中介', '包装印刷', '广告服务', '安全安保', '商务服务-综合平台', '团建拓展', '商务服务-其他'],
+            "生活服务": ['开锁配钥', '刻章办证', '便民回收', '便民充值', '家政服务', '月子中心（非医疗机构）', '居民维修', '摄影婚庆', '餐饮', '宠物医院', '宠物周边', '婚恋相亲', '室内娱乐', '户外娱乐', '体育演出场馆', '生活美容', '养生保健', '文玩收藏', '心理援助', '彩票', '生活服务-综合平台', '生活服务-其他'],
+            "文娱传媒": ['影音动漫', '传统媒体', '文书期刊', '资讯平台', '视频平台', '直播平台', '小说阅读', '自媒体', '文娱票务', '活动演出', '文娱传媒-其他'],
+            "文体器材": ['办公设备及器械', '文教具', '办公文教-其他', '体育器械', '音乐器械', '玩具模型', '娱乐器械', '户外装备'],
+            "交通出行": ['摩托车', '电动车', '航铁船', '非机动车', '便民出行', '车辆平台', '交通出行-其他', '汽车厂商', '汽车经销商', '汽配及服务'],
+            "物流业": ['物流运输', '特殊运输', '快递运输', '物流业-其他'],
+            "日用消费品": ['礼品', '日化用品', '一般化妆品', '特殊用途化妆品', '成人用品', '日用消费品-其他'],
+            "食品饮料": ['粮油米面', '生鲜', '速食', '烟酒', '乳制品及乳制品饮料', '休闲零食', '调味品', '饮料冲调', '营养品', '特殊医学用途配方食品', '食品饮料综合', '食品饮料-其他'],
+            "母婴用品": ['奶粉', '辅食', '婴儿用品', '孕妇用品', '母婴服饰', '母婴用品综合', '母婴用品-其他'],
+            "金融服务": ['银行业', '证券业', '基金业', '保险业', '期货业', '信托业', '金融征信', '外汇类', '小额贷款', '典当', '担保及保理', '租赁业', '平台中介', '第三方支付', '网络借贷服务', '金融门户网站', '金融服务-其他'],
+            "IT/消费电子": ['手机数码', '电脑办公', '电器', 'IT/消费电子交易', 'IT/消费电子-其他'],
+            "软件": ['多媒体处理', '社交通讯', '商用软件', '实用工具', '软件平台'],
+            "游戏": ['页游端游', '手机游戏', '休闲益智', '桌游卡牌', '游戏平台', '游戏周边', '开发服务', '游戏-其他'],
+            "教育培训": ['早教', 'K12教育', '学历教育', '职业培训', '语言培训', '出国留学', '兴趣培训', '特殊教育', '教育培训综合', '教育培训-其他'],
+            "旅游服务": ['旅游局', '景点', '酒店', '旅行社', '商旅票务', '航空公司', '在线旅游', '旅游服务-其他'],
+            "箱包服饰": ['服装鞋帽', '珠宝饰品', '眼镜', '钟表', '箱包皮具', '奢侈品'],
+            "商品交易": ['电商B2B', '电商B2C', '二类电商', '实体零售', '商品信息平台'],
+            "房产家居": ['房地产开发商', '房产中介', '物业管理', '装修建材', '装潢装修', '家具家居', '装修服务平台', '房产家居-其他'],
+            "电子电工": ['电子器件', '仪器仪表', '智能制造', '电工电气'],
+            "通信": ['电信运营商', '虚拟运营商', '通信及网络设备', '通信-其他'],
+            "网络服务": ['网站建设', '域名空间', '云服务', '系统集成', '网络营销', '网络服务-其他'],
+            "农林牧渔": ['农业', '林业', '渔业', '畜牧业', '化肥及农药', '农林牧渔-其他'],
+            "社会公共": ['政府政务', '社会组织', '市政建设', '宗教'],
+            "化工及能源": ['化工原料', '矿产资源', '矿产及化工制品', '消毒产品', '危险化学品', '能源', '污染处理', '废旧回收', '节能', '化工及能源-其他'],
+            "招商加盟": ['招商-餐饮酒店', '招商-教育培训', '招商-服务类', '招商-家居建材', '招商-服装鞋帽', '招商-礼品饰品', '招商-美容化妆', '招商-休闲娱乐', '招商-生活用品', '招商加盟联展平台', '招商-其他'],
+            "其他": ['其他'],
+
+        };
+        window.onload = function () {
+            var oSelectPro = document.getElementById('first');
+            var oSelectCity = document.getElementById('second');
+
+            oSelectPro.onchange = function () {
+                //获取当前选中的标签值
+                var aRrayCity = proData[this.value];
+                //选择后清空option
+                oSelectCity.options.length = 0;
+                for (var i = 0; i < aRrayCity.length; i++) {
+                    var oOption = document.createElement('option');
+                    oOption.innerHTML = aRrayCity[i];
+                    oOption.value = aRrayCity[i];
+                    oSelectCity.appendChild(oOption)
+                }
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {},
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['19年', '20年', '21年']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '北分',
+                    type: 'bar',
+                    stack: 'Ad',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: {{ state.0 }}
+                },
+                {
+                    name: '广分',
+                    type: 'bar',
+                    stack: 'Ad',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: {{ state.1 }}
+                },
+                {
+                    name: '上分',
+                    type: 'bar',
+                    stack: 'Ad',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: {{ state.2 }}
+                },
+                {
+                    name: '深分',
+                    type: 'bar',
+                    stack: 'Ad',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: {{ state.3 }}
+                },
+                {
+                    name: '苏分',
+                    type: 'bar',
+                    stack: 'Ad',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: {{ state.4 }}
+                },
+                {
+                    name: '天分',
+                    type: 'bar',
+                    stack: 'Ad',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: {{ state.5 }}
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        var myChart_2 = echarts.init(document.getElementById('main_2'));
+        var option_2 = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            legend: {
+                data: ['19年', '20年', '21年', '年环比', '年同比']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['北分', '广分', '上分', '深分', '苏分', '天分'],
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: 'all',
+                    min: 0,
+                    max: 150000000,
+                    interval: 50000000,
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                },
+                {
+                    type: 'value',
+                    name: '%',
+                    min: -100,
+                    max: 100,
+                    interval: 50,
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '19年',
+                    type: 'bar',
+                    data: {{ data_19_21.0 }}
+                },
+                {
+                    name: '20年',
+                    type: 'bar',
+                    data: {{ data_19_21.1 }}
+                },
+                {
+                    name: '21年',
+                    type: 'bar',
+                    data: {{ data_19_21.2 }}
+                },
+                {
+                    name: '年环比',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data: {{ huan_bi |slice:":6"}}
+                },
+                {
+                    name: '年同比',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data: {{ tong_bi |slice:":6" }}
+                }
+            ]
+        };
+        myChart_2.setOption(option_2);
+
+    </script>
+</div>
+</body>
+
+</html>
